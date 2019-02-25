@@ -15,3 +15,7 @@ Initialize Database
 `python manage.py migrate`
 
 python `manage.py runserver`
+
+Updating Models and Database
+`py manage.py makemigrations skate`
+`py manage.py migrate skate`
