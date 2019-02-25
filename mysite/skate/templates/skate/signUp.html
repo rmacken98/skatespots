@@ -24,7 +24,8 @@
                 <a class="btn btn-dark" href="{% url 'skate:index' %}" role="button">Welcome {{request.user.username}}! </a>
           </div>
           <div class="col order-4">
-                <a class="btn btn-dark" href="" role="button">Add Spot</a>
+               
+                <button class="btn btn-dark" data-toggle="modal" data-target="#SpotModel" data-whatever="@mdo">Add Spot</a>
           </div>
          
         </div>
@@ -76,7 +77,38 @@
 
 
 
-
+        <div class="modal fade" id="SpotModel" tabindex="-1" role="dialog" aria-labelledby="SpotModel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="SignupModel">Create Spot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form action="{% url 'skate:signUp' %}" method="POST">
+                      {% csrf_token %}
+          
+                      <div class="form-group">
+                          <label for="exampleInputName1">Spot name</label>
+                          <input name ='name' type="name" class="form-control" id="spotName" placeholder="Name">
+                        </div> 
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <input name ='email' type="address" class="form-control" id="address"  placeholder="Enter address">
+                      
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Description</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
     <!-- Optional JavaScript -->

@@ -17,7 +17,6 @@ def signIn(request):
         login(request, user)
         print(user)
         return render(request,'skate/signUp.html')
-        
     else:
           print("user does not exist")
           return HttpResponseRedirect(reverse('skate:index'))
@@ -25,14 +24,25 @@ def signIn(request):
 def signUp(request):
     username = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
+    email= request.POST['email']
+    user = authenticate(request, username=username,email=email, password=password)
     if user is not None:
-        print('user already exists')
-        return render(request,'skate/index.html')
-        
+      # the user has mistakenly tried to sign in with the sign up form if the username, email and password match it signs them in
+        login(request, user)
+      
+        return render(request,'skate/signUp.html')
+     
+    elif User.objects.filter(username=username).exists() or  User.objects.filter(email=email).exists():
+      # user has attempted to register with a username or email that already exists and 
+      # their is no match between the username, email and password
+          print('username or email already registered')
+          return HttpResponseRedirect(reverse('skate:index'))
+    
     else:
+          # user registration 
           user = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
           user.save()
+          login(request, user)
           print(user)
           return HttpResponseRedirect(reverse('skate:signUp'))
 
