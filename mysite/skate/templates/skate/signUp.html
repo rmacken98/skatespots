@@ -44,7 +44,10 @@
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>{{spot.spot_name}}</td>
+            <td> <a href="http:/google.com">
+              <div style="height:100%;width:100%">
+                  {{spot.spot_name}}
+              </div>
             <td>{{spot.spot_address}}</td>
             <td>{{spot.spot_Description}}</td>
             
@@ -79,7 +82,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <form action="{% url 'skate:addSpot' %}" method="POST">
+                  <form action="{% url 'skate:addSpot' %}" method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
           
                       <div class="form-group">
@@ -94,6 +97,15 @@
                     <div class="form-group">
                       <label for="Description">Description</label>
                       <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
+                    </div>
+                    <div class="file-group">
+                      <div class="input-group-prepend">
+                       
+                      </div>
+                      <div class="custom-file">
+                        <input  name ='picture'type="file" class="custom-file-input" id="picture" aria-describedby="picture">
+                        <label class="custom-file-label" for="picture">Choose file</label>
+                      </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>

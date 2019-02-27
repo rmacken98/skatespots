@@ -63,6 +63,7 @@ def logout_view(request):
       return HttpResponseRedirect(reverse('skate:index'))
 
 def addSpot(request):
-      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'])
+      print(request.FILES['picture'])
+      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
       spot.save()
       return render(request,'skate/signUp.html')
