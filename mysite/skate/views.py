@@ -4,8 +4,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect,reverse
 from django.contrib import messages
+from skate.models import Spot
+from django.template import loader
+
 def index(request):
-    return render(request, 'skate/index.html')
+    spot = Spot.objects.all()
+    context ={'spot':spot}
+    template = loader.get_template('skate/index.html')
+    return HttpResponse(template.render(context, request))
 
 
 def signIn(request):
@@ -14,8 +20,10 @@ def signIn(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        print(user)
-        return render(request,'skate/signUp.html')
+        spot = Spot.objects.all()
+        context ={'spot':spot}
+        template = loader.get_template('skate/signUp.html')
+        return HttpResponse(template.render(context, request))
     else:
           #if the the username and password do not match user is returned to home page with error message
           messages.warning(request, 'Invalid username or password.')
@@ -42,7 +50,6 @@ def signUp(request):
     
     else:
           # user registration 
-        
           user = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
           user.save()
           login(request, user)
@@ -54,3 +61,8 @@ def logout_view(request):
       messages.info(request, 'Logout successful')
       logout(request)
       return HttpResponseRedirect(reverse('skate:index'))
+
+def addSpot(request):
+      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'])
+      spot.save()
+      return render(request,'skate/signUp.html')

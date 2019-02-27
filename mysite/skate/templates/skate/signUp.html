@@ -34,33 +34,25 @@
                 <br>
                 <br>
                 <table class="table table-hover table-dark">
-                    <thead>
-                        <th scope='col'>#</th>
-                        <th scope="col">Spot Name</th>
-              <th scope="col">Address</th>
-              <th scope="col">Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td colspan="2"></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+                  <thead>
+                      <th scope='col'>#</th>
+                      <th scope="col">Spot Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Description</th>
+          </tr> {% for spot in spot %}
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{spot.spot_name}}</td>
+            <td>{{spot.spot_address}}</td>
+            <td>{{spot.spot_Description}}</td>
+            
+          </tr>
+          {% endfor %}
+            
+        </tbody>
+      </table>
                     </thead>
                 </table>  
         </div>
@@ -81,43 +73,27 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="SignupModel">Create Spot</h5>
+                <h5 class="modal-title" id="SpotModel">Create Spot</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                  <form action="{% url 'skate:signUp' %}" method="POST">
+                  <form action="{% url 'skate:addSpot' %}" method="POST">
                       {% csrf_token %}
           
                       <div class="form-group">
-                          <label for="exampleInputName1">Spot name</label>
+                          <label for="name">Spot name</label>
                           <input name ='name' type="name" class="form-control" id="spotName" placeholder="Name">
                         </div> 
                     <div class="form-group">
                       <label for="address">Address</label>
-                      <input name ='email' type="address" class="form-control" id="address"  placeholder="Enter address">
+                      <input name ='address' type="address" class="form-control" id="address"  placeholder="Enter address">
                       
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Description</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="sel1">Rating:</label>
-                      <select class="form-control" id="sel1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Select Spot Images</label>
-                      </div>
+                      <label for="Description">Description</label>
+                      <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>

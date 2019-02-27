@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Skate Spots</title>
   </head>
   <body>
         <h1 class="text-center">Skate spots</h1>
@@ -37,27 +37,23 @@
                         <th scope='col'>#</th>
                         <th scope="col">Spot Name</th>
               <th scope="col">Address</th>
-              <th scope="col">Rating</th>
-            </tr>
+              <th scope="col">Description</th>
+            </tr> {% for spot in spot %}
           </thead>
           <tbody>
             <tr>
               <th scope="row">1</th>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td> <a href="http:/google.com">
+                <div style="height:100%;width:100%">
+                    {{spot.spot_name}}
+                </div>
+                </td>
+              <td>{{spot.spot_address}}</td>
+              <td>{{spot.spot_description}}</td>
+              
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td colspan="2"></td>
-              <td></td>
-            </tr>
+            {% endfor %}
+              
           </tbody>
         </table>
                     </thead>
