@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect,reverse
 from django.contrib import messages
 from skate.models import Spot
+from django.views.generic import ListView, DetailView
 from django.template import loader
 
 def index(request):
@@ -12,6 +13,24 @@ def index(request):
     context ={'spot':spot}
     template = loader.get_template('skate/index.html')
     return HttpResponse(template.render(context, request))
+
+class SpotListView(ListView):
+      model = Spot
+      template_name ='skate/index.html'
+      context_object_name='spot'
+      
+
+class SpotDetailView(DetailView):
+      model = Spot
+      
+
+
+def detail(request):
+    spot = Spot.objects.all()
+    context ={'spot':spot}
+    template = loader.get_template('skate/detail.html')
+    return HttpResponse(template.render(context, request))
+
 
 
 def signIn(request):
@@ -22,7 +41,7 @@ def signIn(request):
         login(request, user)
         spot = Spot.objects.all()
         context ={'spot':spot}
-        template = loader.get_template('skate/signUp.html')
+        template = loader.get_template('skate/index.html')
         return HttpResponse(template.render(context, request))
     else:
           #if the the username and password do not match user is returned to home page with error message
@@ -38,7 +57,7 @@ def signUp(request):
       # the user has mistakenly tried to sign in with the sign up form if the username, email and password match it signs them in
         login(request, user)
       
-        return render(request,'skate/signUp.html')
+        return render(request,'skate/index.html')
      
     elif User.objects.filter(username=username).exists() or  User.objects.filter(email=email).exists():
       # user has attempted to register with a username or email that already exists and 
@@ -54,7 +73,7 @@ def signUp(request):
           user.save()
           login(request, user)
           messages.info(request, 'Registration complete')
-          return HttpResponseRedirect(reverse('skate:signUp'))
+          return HttpResponseRedirect(reverse('skate:index'))
 
 def logout_view(request):
       #ends the session logs out the user and returns to homepage
@@ -66,4 +85,7 @@ def addSpot(request):
       print(request.FILES['picture'])
       spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
       spot.save()
-      return render(request,'skate/signUp.html')
+      return HttpResponseRedirect(reverse('skate:index'))
+
+
+

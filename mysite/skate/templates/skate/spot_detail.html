@@ -1,4 +1,3 @@
-{% load static %}
 
 <!doctype html>
 <html lang="en">
@@ -12,74 +11,38 @@
 
     <title>Skate Spots</title>
   </head>
-  <body>
+  <body background={{spot.picture}}>
         <h1 class="text-center">Skate spots</h1>
     <div class="container">
         
         <nav class="navbar navbar-expand-sm bg-dark">
 
-            {% if user.is_authenticated %}
             <ul class="navbar-nav">
               <li class="nav-item">
                   <a class="btn btn-dark" href="" role="button">Home</a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-dark" href="{% url 'skate:logout' %}" role="button">Welcome {{request.user}}</a>
+                  <button class="btn btn-dark" data-toggle="modal" data-target="#SignupModel" data-whatever="@mdo">Welcome {{request.user}}</button>
               </li>
               <li class="nav-item">
                   <button class="btn btn-dark" data-toggle="modal" data-target="#SpotModel" data-whatever="@mdo">Add Spot</a>
               </li>
             </ul>
-            {% else %}
           
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="btn btn-dark" href="" role="button">Home</a>
-              </li>
-              <li class="nav-item">
-                  <button class="btn btn-dark" data-toggle="modal" data-target="#SignupModel" data-whatever="@mdo">Sign Up</button>
-              </li>
-              <li class="nav-item">
-                  <button class="btn btn-dark" data-toggle="modal" data-target="#signIn" data-whatever="@mdo">Login</a>
-              </li>
-            </ul>
-          {% endif %}
           </nav>
         
         <div class="row align-items-center">
             <div class="col order-1">
                 <br>
                 <br>
-                <table class="table table-hover table-dark">
-                    <thead>
-                        <th scope='col'>#</th>
-                        <th scope="col">Spot Name</th>
-              <th scope="col">Address</th>
-              <th scope="col">Description</th>
-
-            </tr>
-            {% block content %}
-             {% for spot in spot %}
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{{spot.id}}</th>
-              <td> <a href="{% url 'skate:detail' spot.id %}">
-                <div style="height:100%;width:100%">
-                    
-                    {{spot.spot_name}}
-                </div>
-                </td>
-              <td>{{spot.spot_address}}</td>
-              <td>{{spot.spot_description}}</td>
-             </tr>
-            {% endfor %}
-            {% endblock content %}
-              
-          </tbody>
-        </table>
-                    </thead>
-                </table>  
+               Spot name : {{object.spot_name}}
+               <br>
+               Spot Address : {{object.spot_address}}
+               <br>
+               Description : {{object.spot_description}}
+               <br>
+               Rating :
+        
         </div>
         
        
