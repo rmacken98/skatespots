@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect,reverse
 from django.contrib import messages
-from skate.models import Spot
+from skate.models import Spot, Review
 from django.views.generic import ListView, DetailView
 from django.template import loader
 
@@ -20,17 +20,13 @@ class SpotListView(ListView):
       context_object_name='spot'
       
 
-class SpotDetailView(DetailView):
-      model = Spot
-      
 
-
-def detail(request):
-    spot = Spot.objects.all()
-    context ={'spot':spot}
-    template = loader.get_template('skate/detail.html')
-    return HttpResponse(template.render(context, request))
-
+def detail(request, pk):
+    spot = Spot.objects.get(pk=pk)
+    #review=Review.objects.get(link=pk)
+    reviews= spot.review_set.all()
+    context ={'spot':spot, 'reviews':reviews}
+    return render(request,'skate/spot_detail.html',context)
 
 
 def signIn(request):
@@ -82,10 +78,12 @@ def logout_view(request):
       return HttpResponseRedirect(reverse('skate:index'))
 
 def addSpot(request):
-      print(request.FILES['picture'])
       spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
       spot.save()
       return HttpResponseRedirect(reverse('skate:index'))
 
 
-
+def addReview(request,pk):
+      review= Review(link=Spot.objects.get(pk=pk), text=request.POST['review'])
+      review.save()
+      return HttpResponseRedirect(reverse('skate:index'))

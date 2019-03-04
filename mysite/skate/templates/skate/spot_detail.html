@@ -19,7 +19,7 @@
 
             <ul class="navbar-nav">
               <li class="nav-item">
-                  <a class="btn btn-dark" href="" role="button">Home</a>
+                  <a class="btn btn-dark" href="{% url 'skate:index' %}" role="button">Home</a>
               </li>
               <li class="nav-item">
                   <button class="btn btn-dark" data-toggle="modal" data-target="#SignupModel" data-whatever="@mdo">Welcome {{request.user}}</button>
@@ -35,24 +35,16 @@
             <div class="col order-1">
                 <br>
                 <br>
-               Spot name : {{object.spot_name}}
-               <br>
-               Spot Address : {{object.spot_address}}
-               <br>
-               Description : {{object.spot_description}}
-               <br>
-               Rating :
-              <br> 
-              <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}">
+               
               
         </div>
         <dl class="row">
           <dt class="col-sm-3"> Spot name : </dt>
-          <dd class="col-sm-9"> {{object.spot_name}}.</dd>
+          <dd class="col-sm-9"> {{spot.spot_name}}.</dd>
         
           <dt class="col-sm-3">Spot Address :</dt>
           <dd class="col-sm-9">
-            <p>{{object.spot_address}}</p>
+            <p>{{spot.spot_address}}</p>
             
           </dd>
         
@@ -60,13 +52,29 @@
           <dd class="col-sm-9"> <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}"></dd>
         
           <dt class="col-sm-3 text-truncate">Description : </dt>
-          <dd class="col-sm-9">{{object.spot_description}}</dd>
+          <dd class="col-sm-9">{{spot.spot_description}}</dd>
   
             </dl>
           </dd>
         </dl>
-        
+
+        <div>
+            <form action="{% url 'skate:review' spot.id %}" method="POST">
+                {% csrf_token %}
+    
+                <div class="form-group">
+                    <label for="review">Review</label>
+                    <input name ='review' type="review" class="form-control" id="review" placeholder="review">
+                  </div> 
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+           
        
+{% for review in reviews %}
+{{review.text}}
+{% endfor %}
 
 
     <div class="modal fade" id="SignupModel" tabindex="-1" role="dialog" aria-labelledby="SignupModel" aria-hidden="true">
