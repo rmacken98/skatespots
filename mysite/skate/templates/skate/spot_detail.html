@@ -42,8 +42,29 @@
                Description : {{object.spot_description}}
                <br>
                Rating :
-        
+              <br> 
+              <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}">
+              
         </div>
+        <dl class="row">
+          <dt class="col-sm-3"> Spot name : </dt>
+          <dd class="col-sm-9"> {{object.spot_name}}.</dd>
+        
+          <dt class="col-sm-3">Spot Address :</dt>
+          <dd class="col-sm-9">
+            <p>{{object.spot_address}}</p>
+            
+          </dd>
+        
+          <dt class="col-sm-3"></dt>
+          <dd class="col-sm-9"> <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}"></dd>
+        
+          <dt class="col-sm-3 text-truncate">Description : </dt>
+          <dd class="col-sm-9">{{object.spot_description}}</dd>
+  
+            </dl>
+          </dd>
+        </dl>
         
        
 
