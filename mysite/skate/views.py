@@ -23,7 +23,6 @@ class SpotListView(ListView):
 
 def detail(request, pk):
     spot = Spot.objects.get(pk=pk)
-    #review=Review.objects.get(link=pk)
     reviews= spot.review_set.all()
     context ={'spot':spot, 'reviews':reviews}
     return render(request,'skate/spot_detail.html',context)
@@ -79,7 +78,7 @@ def logout_view(request):
 
 def addSpot(request):
       
-      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
+      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'], author= request.user)
       spot.save()
       return HttpResponseRedirect(reverse('skate:index'))
 
@@ -91,8 +90,17 @@ def addReview(request,pk):
 
 
 def editSpot(request, pk):
-      image = request.FILES['picture']
-      spot = Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
-      image.save()
-     
+      Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
       return HttpResponseRedirect(reverse('skate:index'))
+
+def editReview(request, pk):
+      Review.objects.filter(link=pk).update(text=request.POST['review'])
+      return HttpResponseRedirect(reverse('skate:index'))
+
+def deleteSpot(request, pk):
+       Spot.objects.filter(pk=pk).delete()
+       return HttpResponseRedirect(reverse('skate:index'))
+
+def deleteReview(request, fk):
+       Review.objects.filter(fk=fk).delete()
+       return HttpResponseRedirect(reverse('skate:index'))

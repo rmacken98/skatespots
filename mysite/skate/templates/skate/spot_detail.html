@@ -1,134 +1,148 @@
 {% extends 'skate/base.html' %}
-  {% block content %}
-  <section class ="portfolio" id="portfolio">
-        <div class="container">
-                <header class="masthead bg-primary text-black text-center">
-  <h1 class="font-weight-light mb-0">{{spot.spot_name}}</h2>
-  </header>
-  <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}">
-  <h2 class="font-weight-light mb-0">{{spot.spot_address}}</h2>
-  <h2 class="font-weight-light mb-0">{{spot.spot_description}}</h2>
-        
+{% block content %}
 
-        <div>
-            <form action="{% url 'skate:review' spot.id %}" method="POST">
-                {% csrf_token %}
     
-                <div class="form-group">
-                    <label for="review">Review</label>
-                    
-                    <textarea name ='Review' type= 'review' class="form-control" id="review" rows="3"></textarea>
-                  </div> 
-              
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-           
-       
-{% for review in reviews %}
-{{review.text}}
-{% endfor %}
-        </div>
-    </section>
+        <header class="masthead bg-primary text-black text-center">
+
+            <h1 class="font-weight-light mb-0">{{spot.spot_name}} {{spot.author}}</h2>
+        </header>
+        <section class="portfolio" id="portfolio">
+            <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}">
+            <h2 class="font-weight-light mb-0">{{spot.spot_address}}</h2>
+            <h2 class="font-weight-light mb-0">{{spot.spot_description}}</h2>
 
 
-    <div class="col order-4">
-               
             
-
-                <form action="{% url 'skate:edit' spot.id %}" method="POST" enctype="multipart/form-data">
+        </section>
+        <div>
+                <form action="{% url 'skate:review' spot.id %}" method="POST">
                     {% csrf_token %}
         
                     <div class="form-group">
-                        <label for="name">Spot name</label>
-                        <input name ='name' type="name" class="form-control" id="spotName" placeholder="Name">
+                        <label for="review">Review</label>
+                        <input name ='review' type="review" class="form-control" id="review" placeholder="review">
                       </div> 
-                  <div class="form-group">
-                    <label for="address">Address</label>
-                    <input name ='address' type="address" class="form-control" id="address"  placeholder="Enter address">
-                    
-                  </div>
-                  <div class="form-group">
-                    <label for="Description">Description</label>
-                    <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
-                  </div>
-                  <div class="file-group">
-                    <div class="input-group-prepend">
-                     
-                    </div>
-                    <div class="custom-file">
-                      <input  name ='picture'type="file" class="custom-file-input" id="picture" aria-describedby="picture">
-                      <label class="custom-file-label" for="picture">Choose file</label>
-                    </div>
-                  </div>
+                  
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-    <div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editModel">Create Spot</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'skate:edit' spot.id %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-            
-                        <div class="form-group">
-                            <label for="name">Spot name</label>
-                            <input name ='name' type="name" class="form-control" id="spotName" placeholder="Name">
-                          </div> 
-                      <div class="form-group">
-                        <label for="address">Address</label>
-                        <input name ='address' type="address" class="form-control" id="address"  placeholder="Enter address">
-                        
-                      </div>
-                      <div class="form-group">
-                        <label for="Description">Description</label>
-                        <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
-                      </div>
-                      <div class="file-group">
-                        <div class="input-group-prepend">
-                         
-                        </div>
-                        <div class="custom-file">
-                          <input  name ='picture'type="file" class="custom-file-input" id="picture" aria-describedby="picture">
-                          <label class="custom-file-label" for="picture">Choose file</label>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-              </div>
             </div>
-   {% endblock %}
+        <section id="contact">
+                <div class="container">
+                        <form action="{% url 'skate:editx' spot.id %}" method="POST">
+                                {% csrf_token %}
+                    
+                                <div class="form-group">
+                                    <label for="review">Review</label>
+                                    <textarea name ='review' type="review" class="form-control" id="review" placeholder="review"></textarea>
+                                  </div> 
+                              
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+        </div>
+        </section>
+        
+        <div class="container">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h2 class="page-header">Reviews</h2>
+                      <section class="comment-list">
+            {% for review in reviews %}
+        <article class="row">
+                <div class="col-md-2 col-sm-2 hidden-xs">
+                  <figure class="thumbnail">
+                   
+                    <figcaption class="text-center">username</figcaption>
+                  </figure>
+                </div>
+                <div class="col-md-10 col-sm-10">
+                  <div class="panel panel-default arrow left">
+                    <div class="panel-body">
+                      <header class="text-left">
+                        <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
+                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                      </header>
+                      <div class="comment-post">
+                        <p>
+                         {{review.text}}
+                         ejfwk;rfernfg
+                         fdf[nv
+                         'ldjfwdjm[o']
+                        </p>
+                     
+                  </div>
+                </div>
+              </article>
+              {% endfor %}
+              
+            </section>
+        </div>
+      </div>
+    </div>
+<div class="col order-4">
+
+
+    {% if "{{request.user}}" == "{{spot.author}}" %}
+    <form action="{% url 'skate:edit' spot.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name">Spot name</label>
+            <input name='name' type="name" class="form-control" id="spotName" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input name='address' type="address" class="form-control" id="address" placeholder="Enter address">
+
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea name='Description' type='Description' class="form-control" id="Description" rows="3"></textarea>
+        </div>
+        <div class="file-group">
+            <div class="input-group-prepend">
+
+            </div>
+            <div class="custom-file">
+                <input name='picture' type="file" class="custom-file-input" id="picture" aria-describedby="picture">
+                <label class="custom-file-label" for="picture">Choose file</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {%else%}
+    <p></p>
+    {%endif%}
+
+</div>
 
 
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </body>
+
+
+
+
+
+
+
+
+
+</div>
+{% endblock %}
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

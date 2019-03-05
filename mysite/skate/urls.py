@@ -12,6 +12,9 @@ urlpatterns = [
     path('addSpot', views.addSpot, name='addSpot'),
      path('spot/<pk>/', views.detail, name='detail'),
      path('spotedit/<pk>/', views.editSpot, name='edit'),
+     path('reviewEdit/<pk>/', views.editReview, name='editx'),
+     path('reviewDelete/<pk>/', views.deleteReview, name='deleteReview'),
+     path('spotDelete/<pk>/', views.deleteSpot, name='delete'),
      path('review/<pk>/', views.addReview, name='review')
 
     
