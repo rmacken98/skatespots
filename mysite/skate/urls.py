@@ -11,7 +11,9 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('addSpot', views.addSpot, name='addSpot'),
      path('spot/<pk>/', views.detail, name='detail'),
+     path('spotedit/<pk>/', views.editSpot, name='edit'),
      path('review/<pk>/', views.addReview, name='review')
+
     
     
     

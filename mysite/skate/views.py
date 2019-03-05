@@ -78,6 +78,7 @@ def logout_view(request):
       return HttpResponseRedirect(reverse('skate:index'))
 
 def addSpot(request):
+      
       spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
       spot.save()
       return HttpResponseRedirect(reverse('skate:index'))
@@ -86,4 +87,12 @@ def addSpot(request):
 def addReview(request,pk):
       review= Review(link=Spot.objects.get(pk=pk), text=request.POST['review'])
       review.save()
+      return HttpResponseRedirect(reverse('skate:index'))
+
+
+def editSpot(request, pk):
+      image = request.FILES['picture']
+      spot = Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
+      image.save()
+     
       return HttpResponseRedirect(reverse('skate:index'))
