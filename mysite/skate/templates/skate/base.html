@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Freelancer - Start Bootstrap Theme</title>
+  <title>Skate Spots</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'skate/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -33,7 +33,7 @@
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
     <div class="container">
         
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">{{request.user}}</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"> Welcome {{request.user}}</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -48,7 +48,8 @@
           </li>
           
           <li class="nav-item mx-0 mx-lg-1">
-              <a class="btn btn-dark" href="{% url 'skate:logout' %}" role="button">logout</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'skate:logout' %}" role="button">Logout</a>
+              
           </li>
           <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"data-toggle="modal" data-target="#SpotModel" data-whatever="@mdo">Add a Spot</a>
@@ -185,6 +186,16 @@
                     <label for="Description">Description</label>
                     <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
                   </div>
+                  <div class="form-group">
+                      <label for="sel1">Select Rating:</label>
+                      <select class="form-control" id="rating">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
                   <div class="file-group">
                     <div class="input-group-prepend">
                      

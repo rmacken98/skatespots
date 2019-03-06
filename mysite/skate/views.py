@@ -7,7 +7,7 @@ from django.contrib import messages
 from skate.models import Spot, Review
 from django.views.generic import ListView, DetailView
 from django.template import loader
-
+from  django.utils import timezone 
 def index(request):
     spot = Spot.objects.all()
     context ={'spot':spot}
@@ -78,19 +78,21 @@ def logout_view(request):
 
 def addSpot(request):
       
-      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'], author= request.user)
+      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'],rating = request.POST['rating'], author= request.user)
       spot.save()
       return HttpResponseRedirect(reverse('skate:index'))
 
 
 def addReview(request,pk):
-      review= Review(link=Spot.objects.get(pk=pk), text=request.POST['review'])
+      review= Review(link=Spot.objects.get(pk=pk), text=request.POST['review'],pub_date=timezone.now(), author= request.user)
+      
+    
       review.save()
       return HttpResponseRedirect(reverse('skate:index'))
 
 
 def editSpot(request, pk):
-      Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'])
+      Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'],rating = request.POST['rating'])
       return HttpResponseRedirect(reverse('skate:index'))
 
 def editReview(request, pk):
@@ -101,6 +103,6 @@ def deleteSpot(request, pk):
        Spot.objects.filter(pk=pk).delete()
        return HttpResponseRedirect(reverse('skate:index'))
 
-def deleteReview(request, fk):
-       Review.objects.filter(fk=fk).delete()
+def deleteReview(request, pk):
+       Review.objects.filter(id=pk).delete()
        return HttpResponseRedirect(reverse('skate:index'))

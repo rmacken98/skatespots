@@ -13,3 +13,9 @@ class SpotAdmin(admin.ModelAdmin):
     search_fields = ['spot_name']
 
 admin.site.register(Spot, SpotAdmin)
+
+
+
+
+
+
