@@ -1,14 +1,66 @@
 {% extends 'skate/base.html' %}
 {% block content %}
 
-    
+<div class="modal fade" id="editSpotModel" tabindex="-1" role="dialog" aria-labelledby="editSpotModel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editSpotModel">Edit Spot</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <form action="{% url 'skate:edit' spot.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+            
+                    <div class="form-group">
+                        <label for="name">Spot name</label>
+                        <input name='name' type="name" class="form-control" id="spotName" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input name='address' type="address" class="form-control" id="address" placeholder="Enter address">
+            
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea name='Description' type='Description' class="form-control" id="Description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                            <label for="rating">Select Rating:</label>
+                            <select class="form-control" id="rating" name="rating">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                    <div class="file-group">
+                        <div class="input-group-prepend">
+            
+                        </div>
+                        <div class="custom-file">
+                            <input name='picture' type="file" class="custom-file-input" id="picture" aria-describedby="picture">
+                            <label class="custom-file-label" for="picture">Choose file</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
         <header class="masthead bg-primary text-black text-center">
 
             <h1 class="font-weight-light mb-0">{{spot.spot_name}} </h1>
             <h2 class="font-weight-light mb-0">Created by : {{spot.author}}</h2>
         </header>
         <section class="portfolio text-center" id="portfolio">
-            <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{{object.spot_name}}">
+            <img src="{{spot.picture.url}}" class="rounded mx-auto d-block" alt="{spot.spot_name}}">
             <br>
             <h2 class="font-weight-light mb-0">Address : </h2>
             <p style="font-size:32px;text-align: center;">{{spot.spot_address}}</p>    
@@ -18,12 +70,12 @@
             <p style="font-size:32px;text-align: center;">{{spot.spot_description}}</p>    
             <br>
             <br>
-            <h2 class="font-weight-light mb-0">Rating : </h2>
+            
             <p style="font-size:32px; text-align: center;">{{spot.rating}}</p>    
             <br>
             <br>
             {% if spot.author.username == request.user.username %}
-            <button class="btn btn-primary" data-toggle="modal" data-target="#SpotModel" data-whatever="@mdo">Edit Spot</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#editSpotModel" data-whatever="@mdo">Edit Spot</button>
             <a class="btn btn-primary" href="{% url 'skate:delete' spot.id %}" role="button">Delete Spot</a>            
             
             {%endif%}
@@ -164,8 +216,8 @@
                             <textarea name='Description' type='Description' class="form-control" id="Description" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                                <label for="sel1">Select Rating:</label>
-                                <select class="form-control" id="rating">
+                                <label for="rating">Select Rating:</label>
+                                <select class="form-control" id="rating" name="rating">
                                   <option>1</option>
                                   <option>2</option>
                                   <option>3</option>

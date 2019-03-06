@@ -14,10 +14,7 @@ def index(request):
     template = loader.get_template('skate/index.html')
     return HttpResponse(template.render(context, request))
 
-class SpotListView(ListView):
-      model = Spot
-      template_name ='skate/index.html'
-      context_object_name='spot'
+
       
 
 
@@ -78,7 +75,7 @@ def logout_view(request):
 
 def addSpot(request):
       
-      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'],rating = request.POST['rating'], author= request.user)
+      spot= Spot(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'], author= request.user)
       spot.save()
       return HttpResponseRedirect(reverse('skate:index'))
 
@@ -92,7 +89,7 @@ def addReview(request,pk):
 
 
 def editSpot(request, pk):
-      Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'],rating = request.POST['rating'])
+      Spot.objects.filter(pk=pk).update(spot_name=request.POST['name'], spot_address=request.POST['address'], spot_description=request.POST['Description'],picture= request.FILES['picture'],)
       return HttpResponseRedirect(reverse('skate:index'))
 
 def editReview(request, pk):

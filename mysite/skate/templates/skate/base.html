@@ -187,8 +187,9 @@
                     <textarea name ='Description' type= 'Description' class="form-control" id="Description" rows="3"></textarea>
                   </div>
                   <div class="form-group">
-                      <label for="sel1">Select Rating:</label>
-                      <select class="form-control" id="rating">
+                      <label for="rating">Select Rating:</label>
+
+                      <select class="form-control" id="rating" name="rating" type= 'rating'>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -212,6 +213,9 @@
         </div>
       </div>
 
+
+
+    
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'skate/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'skate/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

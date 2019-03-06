@@ -10,12 +10,13 @@ Launch pipenv
 
 Creating a new app
 `python manage.py startapp skate`
-
-Initialize Database
+Creating and Updating Models 
+`py manage.py makemigrations skate`
+`
+Initialize and update Database
 `python manage.py migrate`
 
-python `manage.py runserver`
+Run the project
+`python manage.py runserver`
 
-Updating Models and Database
-`py manage.py makemigrations skate`
-`py manage.py migrate skate`
+
